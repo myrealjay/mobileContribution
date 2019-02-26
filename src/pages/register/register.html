@@ -1,0 +1,39 @@
+
+<ion-content padding>
+
+
+  <ion-content padding>
+    <div class="mylogo"><img src="assets/imgs/esusulogo.png" width="100" /></div>
+    
+      <div class="login-error" style="text-align:center;color:yellow;padding-bottom: 15px;" [innerHTML]="error"></div>
+      <form [formGroup]="authForm"  novalidate>
+          <ion-list style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif;">
+        
+            <ion-item>
+              <ion-input type="text" placeholder="name" [(ngModel)]="name" formControlName="name" (keydown)="wipeError()" [class.invalid]="!authForm.controls.name.valid && blur"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="phone" [(ngModel)]="phone" formControlName="phone" (keydown)="wipeError()" [class.invalid]="!authForm.controls.phone.valid && blur"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="email" [(ngModel)]="email" formControlName="email" (keydown)="wipeError()" [class.invalid]="!authForm.controls.email.valid && blur"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="password" placeholder="Password" [(ngModel)]="password"  formControlName="password" (keydown)="wipeError()" [class.invalid]="!authForm.controls.password.valid && blur"></ion-input>
+            </ion-item>
+          
+          </ion-list>
+        
+        <div style="text-align:center; padding-top:20px;font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; z-index: 19999;">
+          <button ion-button color="light" full [disabled]="!authForm.valid" (click)="onSubmit()" clear>Submit</button>
+        </div>
+      </form>
+  
+      <p (click)="login()">Login instead</p>
+      
+  </ion-content>
+  
+</ion-content>

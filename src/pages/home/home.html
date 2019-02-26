@@ -1,18 +1,24 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<ion-content padding class="mainbody">
+  <div class="header">
+      <button ion-button menuToggle class="menubt" >
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <img src="assets/imgs/esusulogo.png" width="100" class="logo" />
+  </div>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <!--<div>
+    <h2 ><span style="font-size: 16px;">Group name </span>{{ name }}</h2>
+  </div>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <div *ngFor="let message of messages">
+    <div>
+      <h4>{{ message.address }}</h4>
+      <p>{{ message.body }}</p>
+      <p> {{ message.date }}</p>
+    </div>
+  </div>
+
+  <button ion-button primary (click)="checkPermission()">Read Messages</button>!-->
+
 </ion-content>

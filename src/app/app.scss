@@ -14,3 +14,50 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+.scroll-content{
+    background:url('../../assets/imgs/esusubg.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center;
+    color:white;
+}
+
+.menubt{
+    background-color:rgba(0,0,0,0) !important;
+    background: none;
+    box-shadow: none;
+   }
+   .header{
+       min-height: 100px;
+   }
+   .logo{
+       float: right;
+   }
+
+.mainmenu{
+    background-color: green;
+}
+
+.menuheader,.toolbar-background{
+    background:url('../../assets/imgs/esusubg.jpg');
+    background-repeat: no-repeat;
+}
+.toolbar-title{
+    color:white;
+}
+
+.modal-wrapper {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+
+
+.mymenu{
+    color:white !important;
+    background-color:rgba(0,0,0,0) !important;
+}

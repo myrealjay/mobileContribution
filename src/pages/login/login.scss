@@ -1,0 +1,108 @@
+page-login {
+    .item-md.item-input.input-has-focus .item-inner {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+      }
+      
+      .list-md .item-input.input-has-focus:last-child {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+      }
+      
+      .list-md .item-input.input-has-focus:last-child .item-inner {
+        box-shadow: none;
+      }
+      
+      .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+      }
+      
+      .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+      }
+      
+      .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner {
+        box-shadow: none;
+      }
+      
+      .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+      }
+      
+      .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+      }
+
+      .item-md.item-block .item-inner,
+        .item-md.item-input.input-has-focus .item-inner,
+        .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
+        .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner,
+        .list-md .item-input.input-has-focus:last-child,
+        .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child,
+        .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+            border-bottom: none;
+            box-shadow: none;
+        }
+        .list-md .item-input.input-has-focus:last-child .item-inner,
+        .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner,
+        .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child .item-inner {
+            box-shadow: none; 
+        }
+
+        .item, .item-block, .item-md ,.item-input ,.ng-dirty ,.ng-touched ,.ng-invalid{
+            background-color: rgba(0,0,0,0);
+            
+        }
+        .text-input, .text-input-md{
+            text-align: center !important;
+            color: white;
+            font-weight: bold;
+        }
+        .button-inner{
+          border-style: solid;
+          border-color:rgba(255, 255, 255,0.5);
+          padding:10px;
+          padding-left:15px;
+          padding-right:15px;
+          border-radius:10px;
+          box-shadow: none;
+      }
+      p{
+        margin-top: 30px;
+      }
+
+      .login-error{
+        color:yellow;
+        margin-top: 70%;
+      }
+      .mylogo{
+        margin: auto;
+        width:200px;
+        text-align: center;
+        height: 100px;
+        padding-top: 30px;
+        
+      }
+      .line{
+        height:3px;
+        background-color: rgba(255, 255, 255,0.3);
+        z-index: 1000 !important;
+    }
+
+    .list-md,.item-md{
+      background-color:rgba(0,0,0,0);
+      border-style: solid;
+      border-color:rgba(255, 255, 255,0.3);
+      border-radius:15px;
+      color:#fff;
+      text-align:center !important;
+      padding:0px;
+      box-shadow: none;
+      z-index: 1000 !important;
+  }
+      
+}
