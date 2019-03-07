@@ -1,0 +1,12 @@
+
+<ion-content padding>
+        <img src="assets/imgs/esusulogo.png" width="100" class="logo" />
+        <div style="padding-top:50px;"><h4 style="text-align: center;">CREATED SCHEMES</h4></div>
+    <div *ngFor="let scheme of myschemes">
+        <button ion-button color="light" full (click)="createdScheme(scheme)" class="mybutton">{{scheme.Name}}</button>
+    </div>
+    <div style="padding-top:50px;"><h4 style="text-align: center;">JOINED SCHEMES</h4></div>
+    <div *ngFor="let scheme of joined">
+            <button ion-button color="light" full (click)="joinedScheme(scheme)" class="mybutton">{{scheme.scheme}}</button>
+        </div>
+</ion-content>

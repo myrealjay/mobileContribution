@@ -42,6 +42,9 @@ export class VerifyPage {
         if(result.status){
           this.error=result.status;
         }
+        else{
+          this.error=result[0];
+        }
       }
     });
   }

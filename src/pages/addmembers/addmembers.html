@@ -1,0 +1,36 @@
+
+<ion-content padding>
+    <img src="assets/imgs/esusulogo.png" width="100" class="logo" />
+  <form [formGroup]="form" (ngSubmit)="manage(form.value)" style="margin-top:50px;">
+   <ion-list margin-bottom>
+     
+   <div
+      formArrayName="data" margin-bottom>
+
+        <section
+           [formGroupName]="i"
+           *ngFor="let d of form.controls.data.controls; let i = index">
+           <ion-item-group>
+              <ion-item-divider color="primary">MEMBER {{ i+1 }}</ion-item-divider>
+              <ion-item class="myitem">
+                 <ion-label floating>name:</ion-label>
+                 <ion-input type="text" formControlName="name"></ion-input>
+              </ion-item>
+              <ion-item class="myitem">
+                <ion-label floating>email:</ion-label>
+                <ion-input type="text" formControlName="email"></ion-input>
+             </ion-item>
+             <ion-item class="myitem">
+              <ion-label floating>phone:</ion-label>
+              <ion-input type="text" formControlName="phone"></ion-input>
+           </ion-item>
+           </ion-item-group>
+        </section>
+     </div>
+
+  </ion-list>
+
+     <button ion-button block margin-top color="primary" text-center [disabled]="!form.valid">Submit</button>
+</form>
+<p (click)="back()" style="margin-top:20px; font-weight: 50px;"><span class="glyphicon glyphicon-arrow-left"></span></p>
+</ion-content>

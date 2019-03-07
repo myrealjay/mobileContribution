@@ -26,8 +26,8 @@ export class LoginPage {
   permissions:any;//cordova.plugins.permissions;
   messages:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public menuCtrl: MenuController,
-    public platform:Platform,public formBuilder: FormBuilder,private storage: Storage,public restProvider: RestProvider
+  constructor(public restProvider: RestProvider,public navCtrl: NavController, public navParams: NavParams,public menuCtrl: MenuController,
+    public platform:Platform,public formBuilder: FormBuilder,private storage: Storage
     ) 
     {
 
@@ -52,9 +52,7 @@ export class LoginPage {
       if(resp.user){
         this.navCtrl.push(HomePage);
       }
-      else{
-        this.navCtrl.push(LoginPage);
-      }
+      
     });
   }
 
@@ -177,8 +175,11 @@ export class LoginPage {
       this.restProvider.login(this.username,this.password)
       .then(data => {
         var result=JSON.parse(JSON.stringify(data));
-        console.log(result);
         if(result.token){
+          this.storage.set("token",result.token);
+        }
+        
+        if(!result.error){
           this.storage.set("token",result.token);
           this.restProvider.checkauth(result.token).then(data2=>{
             let resp=JSON.parse(JSON.stringify(data2));

@@ -1,0 +1,31 @@
+
+<ion-content padding>
+    <img src="assets/imgs/esusulogo.png" width="100" class="logo" />
+  <div class="login-error" style="text-align:center;color:yellow;padding-bottom: 15px; padding-top:30%;" [innerHTML]="error"></div>
+  
+    <form [formGroup]="authForm"  novalidate>
+      <ion-list style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif;">
+
+        <ion-item>
+          <ion-input type="text" placeholder="name" [(ngModel)]="fullname" formControlName="fullname" (keydown)="wipeError()" [class.invalid]="!authForm.controls.fullname.valid && blur"></ion-input>
+        </ion-item>
+
+      
+        <ion-item>
+          <ion-input type="text" placeholder="amount" [(ngModel)]="amount" formControlName="amount" (keydown)="wipeError()" [class.invalid]="!authForm.controls.amount.valid && blur"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input type="text" placeholder="members" [(ngModel)]="members" formControlName="members" (keydown)="wipeError()" [class.invalid]="!authForm.controls.members.valid && blur"></ion-input>
+        </ion-item>
+
+      
+      </ion-list>
+    
+    <div style="text-align:center; padding-top:20px;font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; z-index: 19999;">
+      <button ion-button color="light" full [disabled]="!authForm.valid" (click)="onSubmit()" clear>Create</button>
+    </div>
+  </form>
+  <p (click)="back()" style="margin-top:20px; font-weight: 50px;"><span class="glyphicon glyphicon-arrow-left"></span></p>
+
+</ion-content>
