@@ -39,6 +39,7 @@ export class JoinedschemePage {
       if(data){
         if(data){
           this.user=data;
+       
         }
   
       }
@@ -84,6 +85,7 @@ export class JoinedschemePage {
   }
 
   join(){
+    
     this.restProvider.join(this.token,this.name,this.user.name,this.user.email,this.user.phone,this.amount).then(data=>{
       let resp=JSON.parse(JSON.stringify(data));
       if(resp.message){
