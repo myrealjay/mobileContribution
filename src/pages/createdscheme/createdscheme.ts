@@ -4,6 +4,7 @@ import { AddmembersPage } from '../addmembers/addmembers';
 import { RestProvider } from '../../providers/rest/rest';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
+import { HomePage } from '../home/home';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class CreatedschemePage {
   status=0;
   takehome=0;
   actives:any;
+  activelen=0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider,private storage: Storage) {
     this.scheme=this.navParams.get('scheme');
@@ -81,9 +83,13 @@ export class CreatedschemePage {
         this.takehome=total-((2.5/100)*total);
       }
       this.actives=resp;
+      this.activelen=resp.length;
+      console.log('len',this.activelen);
     });
   }
-
+  back(){
+    this.navCtrl.push(HomePage);
+  }
 
 
   ionViewDidLoad() {

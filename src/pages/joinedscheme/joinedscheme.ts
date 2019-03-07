@@ -22,6 +22,8 @@ export class JoinedschemePage {
   user:any;
   takehome=0;
   actives:any;
+
+  activelen=0;
  
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider,private storage: Storage) {
@@ -101,6 +103,7 @@ export class JoinedschemePage {
       }
      
       this.actives=resp;
+      this.activelen=resp.length;
     });
   }
 

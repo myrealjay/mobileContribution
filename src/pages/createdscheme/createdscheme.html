@@ -14,7 +14,7 @@
         </tr>
       </table>
   </div>
-  <div class="members">
+  <div class="members" *ngIf="memberLen > 0">
     <h4>SCHEME MEMBERS</h4>
       <table class="table">
           <thead>
@@ -29,7 +29,7 @@
           </tbody>
       </table>
   </div>
-  <div class="members">
+  <div class="members" *ngIf="activelen > 0">
     <h4>ACTIVE MEMBERS</h4>
       <table class="table">
           <thead>
@@ -45,5 +45,6 @@
       </table>
   </div>
   <button *ngIf="memberLen==0" ion-button full color="light" class="mybutton" (click)="addmembers()">Add Members</button>
+  <p (click)="back()" style="margin-top:20px; font-weight: 50px;"><span class="glyphicon glyphicon-arrow-left"></span></p>
 
 </ion-content>
