@@ -1,0 +1,23 @@
+
+<ion-content padding>
+
+  <div class="mylogo"><img src="assets/imgs/esusulogo.png" width="100" /></div>
+  <h2 style="text-align: center; font-weight: bold;">BVN CONFIRMATION</h2>
+  
+    <div class="login-error" style="text-align:center;color:yellow;padding-bottom: 15px;">{{ error }}</div>
+    <form [formGroup]="authForm"  novalidate>
+        <ion-list style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif;">
+      
+          <ion-item>
+            <ion-input type="text" placeholder="enter bvn" [(ngModel)]="bvn" formControlName="bvn" (keydown)="wipeError()" [class.invalid]="!authForm.controls.bvn.valid && blur"></ion-input>
+          </ion-item>
+        
+        </ion-list>
+      
+      <div style="text-align:center; padding-top:20px;font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; z-index: 19999;">
+        <button ion-button color="light" full [disabled]="!authForm.valid" (click)="onSubmit()" clear>Verify</button>
+      </div>
+    </form>
+  
+    
+</ion-content>

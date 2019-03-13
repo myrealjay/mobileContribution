@@ -4,6 +4,8 @@ import { RestProvider } from '../../providers/rest/rest';
 import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
+import { GetpaidPage } from '../getpaid/getpaid';
+import { PaydayPage } from '../payday/payday';
 
 
 
@@ -22,8 +24,13 @@ export class JoinedschemePage {
   user:any;
   takehome=0;
   actives:any;
+  email='';
+  paydays:any;
+  payday='';
 
   activelen=0;
+  error='';
+  schemeMember:any;
  
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider,private storage: Storage) {
@@ -39,11 +46,32 @@ export class JoinedschemePage {
       if(data){
         if(data){
           this.user=data;
-       
+          this.email=this.user.email;
         }
   
       }
     });
+  }
+
+  changePayDay(){
+    let my=this;
+      this.restProvider.getUnallocatedDays(this.token,this.name).then(data=>{
+          let resp=JSON.parse(JSON.stringify(data)).paydays;
+          if(resp.length<1) {
+            this.error='No date available';
+          }
+          else{
+            this.restProvider.getSchemeMember(my.token,my.name).then(data=>{
+              let resp2=JSON.parse(JSON.stringify(data));
+              if(resp2.member){
+                let schemeMember=resp2.member;
+                //my.payWithPaystack(this.scheme.Amount,this.schemeMember.id,this.name);
+                my.navCtrl.push(PaydayPage,{paydays:resp,token:my.token,scheme:my.name,email:my.email,oldPayDay:schemeMember.payday});
+              }
+            });
+            
+          }
+      });
   }
 
   checkauth(token){
@@ -86,7 +114,7 @@ export class JoinedschemePage {
 
   join(){
     
-    this.restProvider.join(this.token,this.name,this.user.name,this.user.email,this.user.phone,this.amount).then(data=>{
+    this.restProvider.join(this.token,this.name,this.user.name,this.user.email,this.user.phone,this.amount,this.payday).then(data=>{
       let resp=JSON.parse(JSON.stringify(data));
       if(resp.message){
         this.navCtrl.push(HomePage);
@@ -103,9 +131,22 @@ export class JoinedschemePage {
         let total=amount*num;
         this.takehome=total-((2.5/100)*total);
       }
+      
+        this.getPayDays();
+      
      
       this.actives=resp;
       this.activelen=resp.length;
+      
+    });
+  }
+
+  getPayDays(){
+    this.restProvider.payDays(this.token,this.memberLen,this.name).then(data=>{
+      let resp=JSON.parse(JSON.stringify(data)).paydays;
+      this.paydays=resp;
+      this.payday=this.paydays[0];
+     
     });
   }
 
@@ -113,8 +154,59 @@ export class JoinedschemePage {
   back(){
     this.navCtrl.push(HomePage);
   }
+
+  paymentDetails(){
+    this.restProvider.getPaid(this.token,this.name).then(data=>{
+      let resp=JSON.parse(JSON.stringify(data));
+      if(resp.payment){
+        this.navCtrl.push(GetpaidPage,{paidmembers:resp.payment});
+      }
+      else{
+        this.error='No payment yet';
+      }
+    });
+  }
+
+  pay(){
+    let my=this;
+    this.restProvider.getSchemeMember(this.token,this.name).then(data=>{
+      let resp2=JSON.parse(JSON.stringify(data));
+      if(resp2.member){
+        this.schemeMember=resp2.member;
+        my.payWithPaystack(this.amount,this.schemeMember.id,this.name);
+      }
+    });
+  }
+
+
+  payWithPaystack(amount,scheme_member_id,scheme){
+    let realAmount=amount;
+    amount=Number(amount)*100+((1.5/100)*Number(amount)*100);
+    let my=this;
+    var handler = (<any>window).window.PaystackPop.setup({
+      key: 'pk_test_0c2547ff14558a10ac69ea4d24be731720d1c067',
+      email: my.email,
+      amount: amount,
+      callback: function(response){
+        my.restProvider.verifypayment(response.reference).then(res=>{
+          var authcode=JSON.parse(JSON.stringify(res)).data.authorization.authorization_code;
+          my.restProvider.addpayment(my.token,scheme_member_id,scheme,realAmount,authcode).then(data=>{
+            alert('You have successfully deposited');
+          });
+        });
+         
+          
+      },
+      onClose: function(){
+          alert('Payment canceled');
+      }
+    })
+    handler.openIframe();
+  }
+
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad JoinedschemePage');
+    
   }
 
 }

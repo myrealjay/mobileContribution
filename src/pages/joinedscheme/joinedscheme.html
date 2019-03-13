@@ -4,6 +4,7 @@
     <div style="padding-top:50px;">
         <h4>{{ name | uppercase}}</h4>
       </div>
+      <div style="text-align: center;color:yellow; font-weight: bold;">{{error}}</div>
       <div *ngIf="scheme" style="padding-top:30px;" class="info">
           <table>
             <tr>
@@ -41,7 +42,21 @@
                   </tr>
                 </tbody>
             </table>
+           
+             
+          
         </div>
+        <div style="padding-top:15px; " *ngIf="status==0">
+          <label>Payment Date</label>
+            <select name="payday" [(ngModel)]="payday" class="form-control" style="font-weight: bold;">
+               <option *ngFor="let pay of paydays">{{pay}}</option>
+            </select>
+        </div>
+       
         <button *ngIf="status==0" ion-button full color="light" class="mybutton" (click)="join()">Join Scheme</button>
+        <button ion-button full color="light" class="mybutton" (click)="pay()">Make payment</button><br />
+        <button ion-button full color="light" class="mybutton" (click)="paymentDetails()">Payment Details</button>
+        <div style="font-weight: bold;color:yellow; text-align: center;">{{error}}</div><br />
+  <button *ngIf="status!=0" ion-button full color="light" class="mybutton" (click)="changePayDay()">Change Pay Day</button>
         <p (click)="back()" style="margin-top:20px; font-weight: 50px;"><span class="glyphicon glyphicon-arrow-left"></span></p>
 </ion-content>

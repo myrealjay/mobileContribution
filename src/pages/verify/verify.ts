@@ -4,6 +4,7 @@ import { HomePage } from '../home/home';
 import { RestProvider } from '../../providers/rest/rest';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Storage } from '@ionic/storage';
+import { BvnPage } from '../bvn/bvn';
 
 
 
@@ -28,17 +29,17 @@ export class VerifyPage {
   }
 
   onSubmit(){ 
-    console.log('token',this.user_token);
+    
     this.restProvider.verify(this.token,this.user_token)
     .then(data => {
       var result=JSON.parse(JSON.stringify(data));
       if(result.message){
         if(result.message=="successful"){
-          this.navCtrl.push(HomePage);
+          this.navCtrl.push(BvnPage);
         }
       }
       else{
-        console.log(result);
+        
         if(result.status){
           this.error=result.status;
         }
@@ -54,7 +55,7 @@ export class VerifyPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad VerifyPage');
+   
   }
 
 }

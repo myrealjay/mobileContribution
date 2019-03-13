@@ -1,0 +1,21 @@
+
+
+<ion-content padding>
+  <div class="members">
+    <h4>PAID MEMBERS</h4>
+      <table class="table">
+          <thead>
+            <th>NAME</th><th>AMOUNT</th><th>WEEK</th>
+          </thead>
+          <tbody *ngFor="let member of paidmembers">
+            <tr>
+              <td>{{member[1].name}}</td>
+              <td>{{member[0].amount}}</td>
+              <td>{{member[0].week}}</td>
+            </tr>
+           
+          </tbody>
+      </table>
+      <p (click)="back()" style="margin-top:20px; font-weight: 50px;"><span class="glyphicon glyphicon-arrow-left"></span></p>
+  </div>
+</ion-content>

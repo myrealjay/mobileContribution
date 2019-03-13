@@ -5,6 +5,7 @@ import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
 import { CreatedschemePage } from '../createdscheme/createdscheme';
 import { JoinedschemePage } from '../joinedscheme/joinedscheme';
+import { HomePage } from '../home/home';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class SchemesPage {
   joined:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider,private storage: Storage) {
-   console.log("schemes called");
+   
     this.storage.get("token").then(data=>{
       if(data){
         this.checkauth(data);
@@ -58,7 +59,10 @@ export class SchemesPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SchemesPage');
+  
+  }
+  back(){
+    this.navCtrl.push(HomePage);
   }
 
 }

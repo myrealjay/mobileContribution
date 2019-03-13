@@ -6,6 +6,7 @@ import { RestProvider } from '../../providers/rest/rest';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../login/login';
 
+
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',
@@ -42,11 +43,11 @@ export class RegisterPage {
       else{
         let errmsg='';
         let ers=JSON.parse(result);
-        console.log('json',ers);
+        
     
         for(let key in ers){
           errmsg+='<p>'+ers[key][0]+'</p>';
-          console.log(ers[key][0])
+         
         }
 
         this.error=errmsg;
@@ -65,7 +66,7 @@ export class RegisterPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
+    
   }
 
   

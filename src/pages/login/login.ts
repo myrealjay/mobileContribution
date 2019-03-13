@@ -7,6 +7,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { Storage } from '@ionic/storage';
 import { RestProvider } from '../../providers/rest/rest';
 import { VerifyPage } from '../verify/verify';
+import { BvnPage } from '../bvn/bvn';
 
 
 declare var SMS:any;
@@ -187,7 +188,7 @@ export class LoginPage {
             if(resp.user){
               this.storage.set("token",result.token);
               this.storage.set("user",resp.user);
-              this.navCtrl.push(HomePage);
+              this.navCtrl.push(BvnPage);
             }
           });
         }
@@ -198,10 +199,13 @@ export class LoginPage {
               this.navCtrl.push(VerifyPage);
             }
           }
-          console.log('json',result);
+          
         }
         
       });
     }
+
+
+
 
 }

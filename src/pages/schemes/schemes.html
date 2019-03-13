@@ -9,4 +9,5 @@
     <div *ngFor="let scheme of joined">
             <button ion-button color="light" full (click)="joinedScheme(scheme)" class="mybutton">{{scheme.scheme}}</button>
         </div>
+        <p (click)="back()" style="margin-top:20px; font-weight: 50px;"><span class="glyphicon glyphicon-arrow-left"></span></p>
 </ion-content>

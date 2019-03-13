@@ -1,0 +1,34 @@
+
+<ion-content padding>
+  <img src="assets/imgs/esusulogo.png" width="100" class="logo" />
+
+
+  <div class="members" style="margin-top:60px;">
+    <div style="text-align: center;color:red; font-weight: bold;">{{error}}</div>
+    <h4>CHANGE PAYDAY</h4>
+      <table class="table"> 
+          <tbody>
+            <tr>
+              <td>Old Pay Day</td>
+              <td>{{oldPayDay}}</td>
+            </tr>
+
+            <tr>
+              <td>New Pay Day</td>
+              <td>
+                <select name="payday" [(ngModel)]="payday" class="form-control" style="font-weight: bold;">
+                  <option *ngFor="let pay of paydays">{{pay}}</option>
+               </select>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <button ion-button full color="default" class="mybutton" (click)="changePayDay()">Submit</button>
+              </td>
+            </tr>
+           
+          </tbody>
+      </table>
+  </div>
+  <p (click)="back()" style="margin-top:20px; font-weight: 50px;"><span class="glyphicon glyphicon-arrow-left"></span></p>
+</ion-content>

@@ -5,6 +5,8 @@ import { RestProvider } from '../../providers/rest/rest';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
+import { GetpaidPage } from '../getpaid/getpaid';
+import { PaydayPage } from '../payday/payday';
 
 
 @Component({
@@ -22,6 +24,9 @@ export class CreatedschemePage {
   takehome=0;
   actives:any;
   activelen=0;
+  schemeMember:any;
+  email='';
+  error='';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider,private storage: Storage) {
     this.scheme=this.navParams.get('scheme');
@@ -31,6 +36,15 @@ export class CreatedschemePage {
       if(data){
         this.token=data;
         this.checkauth(data);
+      }
+    });
+
+    this.storage.get("user").then(data=>{
+      if(data){
+        if(data){
+          this.email=data.email;
+        }
+  
       }
     });
     
@@ -60,7 +74,7 @@ export class CreatedschemePage {
   }
 
   addmembers(){
-    console.log(this.scheme);
+    
     this.navCtrl.push(AddmembersPage,{members:this.scheme.Members,id:this.scheme.id,name:this.scheme.Name,amount:this.scheme.Amount});
   }
 
@@ -84,11 +98,83 @@ export class CreatedschemePage {
       }
       this.actives=resp;
       this.activelen=resp.length;
-      console.log('len',this.activelen);
+      
     });
   }
   back(){
     this.navCtrl.push(HomePage);
+  }
+
+
+  pay(){
+    let my=this;
+    this.restProvider.getSchemeMember(this.token,this.name).then(data=>{
+      let resp2=JSON.parse(JSON.stringify(data));
+      if(resp2.member){
+        this.schemeMember=resp2.member;
+        my.payWithPaystack(this.scheme.Amount,this.schemeMember.id,this.name);
+      }
+    });
+  }
+
+
+  payWithPaystack(amount,scheme_member_id,scheme){
+    let realAmount=amount;
+    amount=Number(amount)*100+((1.5/100)*Number(amount)*100);
+    let my=this;
+    var handler = (<any>window).window.PaystackPop.setup({
+      key: 'pk_test_0c2547ff14558a10ac69ea4d24be731720d1c067',
+      email: my.email,
+      amount: amount,
+      callback: function(response){
+        my.restProvider.verifypayment(response.reference).then(res=>{
+          var authcode=JSON.parse(JSON.stringify(res)).data.authorization.authorization_code;
+          my.restProvider.addpayment(my.token,scheme_member_id,scheme,realAmount,authcode).then(data=>{
+            alert('You have successfully deposited');
+          });
+        });
+         
+          
+      },
+      onClose: function(){
+          alert('Payment canceled');
+      }
+    })
+    handler.openIframe();
+  }
+
+
+  paymentDetails(){
+    this.restProvider.getPaid(this.token,this.name).then(data=>{
+      let resp=JSON.parse(JSON.stringify(data));
+      if(resp.payment){
+        this.navCtrl.push(GetpaidPage,{paidmembers:resp.payment});
+      }
+      else{
+        this.error='No payment yet';
+      }
+    });
+  }
+
+  changePayDay(){
+    let my=this;
+      this.restProvider.getUnallocatedDays(this.token,this.name).then(data=>{
+          let resp=JSON.parse(JSON.stringify(data)).paydays;
+          if(resp.length<1) {
+            this.error='No date available';
+          }
+          else{
+            this.restProvider.getSchemeMember(my.token,my.name).then(data=>{
+              let resp2=JSON.parse(JSON.stringify(data));
+              if(resp2.member){
+                let schemeMember=resp2.member;
+                //my.payWithPaystack(this.scheme.Amount,this.schemeMember.id,this.name);
+                my.navCtrl.push(PaydayPage,{paydays:resp,token:my.token,scheme:my.name,email:my.email,oldPayDay:schemeMember.payday});
+              }
+            });
+            
+          }
+      });
   }
 
 

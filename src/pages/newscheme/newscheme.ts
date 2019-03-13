@@ -75,7 +75,7 @@ export class NewschemePage {
 
   
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NewschemePage');
+    
   }
 
 }

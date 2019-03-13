@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+
 import { LoginPage } from '../pages/login/login';
 import { LogoutPage } from '../pages/logout/logout';
 import { RegisterPage } from '../pages/register/register';
@@ -14,6 +14,9 @@ import { SchemesPage } from '../pages/schemes/schemes';
 import { CreatedschemePage } from '../pages/createdscheme/createdscheme';
 import { AddmembersPage } from '../pages/addmembers/addmembers';
 import { JoinedschemePage } from '../pages/joinedscheme/joinedscheme';
+import { GetpaidPage } from '../pages/getpaid/getpaid';
+import { PaydayPage } from '../pages/payday/payday';
+import { BvnPage } from '../pages/bvn/bvn';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,7 +33,6 @@ import { IonicStorageModule } from '@ionic/storage';
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
     LoginPage,
     RegisterPage,
     VerifyPage,
@@ -39,7 +41,10 @@ import { IonicStorageModule } from '@ionic/storage';
     SchemesPage,
     CreatedschemePage,
     AddmembersPage,
-    JoinedschemePage
+    JoinedschemePage,
+    GetpaidPage,
+    PaydayPage,
+    BvnPage
   ],
   imports: [
     BrowserModule,
@@ -51,7 +56,6 @@ import { IonicStorageModule } from '@ionic/storage';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
     LoginPage,
     RegisterPage,
     VerifyPage,
@@ -60,7 +64,10 @@ import { IonicStorageModule } from '@ionic/storage';
     SchemesPage,
     CreatedschemePage,
     AddmembersPage,
-    JoinedschemePage
+    JoinedschemePage,
+    GetpaidPage,
+    PaydayPage,
+    BvnPage
   ],
   providers: [
     AndroidPermissions,

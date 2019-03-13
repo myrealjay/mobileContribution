@@ -1,4 +1,4 @@
-page-login {
+page-bvn {
     .item-md.item-input.input-has-focus .item-inner {
         border-bottom-color: transparent !important;
         box-shadow: none !important;
@@ -77,7 +77,7 @@ page-login {
 
       .login-error{
         color:yellow;
-        margin-top: 60%;
+        margin-top: 30%;
       }
       .mylogo{
         margin: auto;
@@ -104,5 +104,4 @@ page-login {
       box-shadow: none;
       z-index: 1000 !important;
   }
-      
 }
