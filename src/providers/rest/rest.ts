@@ -7,7 +7,7 @@ import {  LoadingController} from 'ionic-angular';
 @Injectable()
 export class RestProvider {
   private loading:any;
-  apiUrl= 'http://192.168.88.31:8000/api';
+  apiUrl= 'http://localhost:8000/api';
 
   constructor(public http: HttpClient,public loadingCtrl: LoadingController) {
   
@@ -574,10 +574,10 @@ export class RestProvider {
     });
   }
 
-  checkBvnPayment(token){
+  checkBvnPayment(token,scheme){
     this.presentLoadingDefault();
     return new Promise(resolve => {
-      this.http.get(this.apiUrl+'/checkBvnPayment/?token='+token,
+      this.http.get(this.apiUrl+'/checkBvnPayment/?scheme='+scheme+'&token='+token,
       {
         headers: { 'Content-Type': 'application/json' }
       }
@@ -600,13 +600,14 @@ export class RestProvider {
   }
 
   
-  makeBvnPayment(token,amount,authcode){
+  makeBvnPayment(token,amount,authcode,scheme){
     this.presentLoadingDefault();
       return new Promise(resolve => {
         this.http.post(this.apiUrl+'/makeBvnPayment/?token='+token,
         {
           amount:amount,
           authcode:authcode,
+          scheme:scheme,
         },
         {
           headers: { 'Content-Type': 'application/json' }

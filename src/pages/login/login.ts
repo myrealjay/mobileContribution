@@ -58,7 +58,7 @@ export class LoginPage {
   }
 
   ionViewWillEnter(){
-    let my=this;
+   /* let my=this;
     this.platform.ready().then((readySource) => {
       if(this.platform.is('cordova')){
         
@@ -75,7 +75,7 @@ export class LoginPage {
         function fail(err){
           console.log(err);
         }
-    });
+    });*/
   }
 
   wipeError(){
@@ -91,7 +91,7 @@ export class LoginPage {
     this.menuCtrl.enable(true, 'myMenu');
   }
 
-  getGroupName(text){
+  /*getGroupName(text){
     
     let patt = /\?.+/i;
     let result = text.match(patt);
@@ -99,9 +99,9 @@ export class LoginPage {
     let name=result[0].split("=");
     let groupname=name[1];
     this.username=groupname;
-  }
+  }*/
 
-      checkPermission()
+     /* checkPermission()
       {
         let my=this;
           this.permissions.hasPermission(this.permissions.READ_SMS, function( status ){
@@ -115,9 +115,9 @@ export class LoginPage {
             }
           });
 
-      }
+      }*/
 
-
+/*
       requestperm(){
         let my=this;
         this.permissions.requestPermission(this.permissions.READ_SMS, success, error);
@@ -165,7 +165,7 @@ export class LoginPage {
         }
                
         });
-    }
+    }*/
 
     register(){
       this.navCtrl.push(RegisterPage);
