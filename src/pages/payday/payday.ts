@@ -31,6 +31,7 @@ export class PaydayPage {
     this.restProvider.updatePayDay(this.token,this.scheme,this.payday,this.oldPayDay,this.email).then(data=>{
       let resp=JSON.parse(JSON.stringify(data));
       if(resp.message){
+        this.restProvider.showToast('Your payday was successfully changed');
         this.navCtrl.push(HomePage);
       }
       else{

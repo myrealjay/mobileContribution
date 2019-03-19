@@ -1,31 +1,70 @@
 
 <ion-content padding>
     <img src="assets/imgs/esusulogo.png" width="100" class="logo" />
-  <div class="login-error" style="text-align:center;color:yellow;padding-bottom: 15px; padding-top:30%;" [innerHTML]="error"></div>
-  
+    
+  <div class="login-error" style="text-align:center;color:yellow;padding-bottom: 15px; padding-top:20%;" [innerHTML]="error"></div>
+  <div class="login-error" style="text-align:center;color:yellow;padding-bottom: 15px; padding-top:5px;" >{{error2}}</div>
+
+  <h4 style="text-align: center;">CREATE A SCHEME</h4>
     <form [formGroup]="authForm"  novalidate>
       <ion-list style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif;">
 
         <ion-item>
-          <ion-input type="text" placeholder="name" [(ngModel)]="fullname" formControlName="fullname" (keydown)="wipeError()" [class.invalid]="!authForm.controls.fullname.valid && blur"></ion-input>
+            <ion-label>name</ion-label>
+          <ion-input type="text"  [(ngModel)]="fullname" formControlName="fullname" (keydown)="wipeError()" [class.invalid]="!authForm.controls.fullname.valid && blur"></ion-input>
         </ion-item>
 
       
         <ion-item>
-          <ion-input type="text" placeholder="amount" [(ngModel)]="amount" formControlName="amount" (keydown)="wipeError()" [class.invalid]="!authForm.controls.amount.valid && blur"></ion-input>
+            <ion-label>amount</ion-label>
+          <ion-input type="text"  [(ngModel)]="amount" formControlName="amount" (keydown)="wipeError()" [class.invalid]="!authForm.controls.amount.valid && blur"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-input type="text" placeholder="members" [(ngModel)]="members" formControlName="members" (keydown)="wipeError()" [class.invalid]="!authForm.controls.members.valid && blur"></ion-input>
+            <ion-label>members</ion-label>
+          <ion-input type="text"  [(ngModel)]="members" formControlName="members" (keydown)="wipeError()" [class.invalid]="!authForm.controls.members.valid && blur"></ion-input>
         </ion-item>
 
+        <ion-item>
+          <ion-label>Start Date</ion-label>
+          <ion-datetime class="mydate" displayFormat="MM/DD/YYYY" min="2019" max="2030-12-31" [(ngModel)]="startDate" formControlName="startDate" [class.invalid]="!authForm.controls.startDate.valid && blur" monthShortNames="Jan, Feb, Mar, April, May, June, July, Aug, Sept, Oct, Nov, Dec"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>End Date</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY" min="2019" max="2030-12-31" [(ngModel)]="endDate" formControlName="endDate" [class.invalid]="!authForm.controls.endDate.valid && blur" monthShortNames="Jan, Feb, Mar, April, May, June, July, Aug, Sept, Oct, Nov, Dec"></ion-datetime>
+        </ion-item>
       
       </ion-list>
-    
-    <div style="text-align:center; padding-top:20px;font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; z-index: 19999;">
-      <button ion-button color="light" full [disabled]="!authForm.valid" (click)="onSubmit()" clear>Create</button>
+
+      <h5 style="text-align: center;" *ngIf="daysToEat">ROTATION INTERVAL IN DAYS:<span style="color:yellow;"> {{ daysToEat }}</span></h5>
+
+      <div *ngIf="daysToEat">
+        <table class="table">
+          <tr>
+            <td>
+
+                <ion-item>
+                    <ion-label>Select Rotation</ion-label>
+                    <ion-select [(ngModel)]="payDay" formControlName="payDay" (ionChange)="changePayDay()">
+                      <ion-option  *ngFor="let day of indexes">{{ day }}</ion-option>
+                    </ion-select>
+                  </ion-item>
+            </td>
+            <td style="font-weight: bold; color:yellow; padding-top:20px;">{{ payDayStr }}</td>
+          </tr>
+        </table>
+      </div>
+    <div *ngIf="!daysToEat" style="text-align:center; padding-top:20px;font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; z-index: 19999;">
+      <button ion-button color="light" [disabled]="!authForm.valid" (click)="onSubmit()">Get Rotations</button>
     </div>
+
   </form>
-  <p (click)="back()" style="margin-top:20px; font-weight: 50px;"><span class="glyphicon glyphicon-arrow-left"></span></p>
+
+  <div *ngIf="daysToEat" style="text-align:center; padding-top:20px;font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; z-index: 19999;">
+      <button ion-button color="light" (click)="SumitForm()">Submit</button>
+    </div>
+  
+  <p (click)="back()" style="margin-top:20px; font-weight: 50px; width:50px;"><span class="glyphicon glyphicon-arrow-left"></span></p>
 
 </ion-content>

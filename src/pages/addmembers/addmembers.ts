@@ -22,7 +22,6 @@ export class AddmembersPage {
   email=[];
   phone=[];
   paydays:any;
-  payday='';
 
   token='';
 
@@ -42,8 +41,7 @@ export class AddmembersPage {
     this.form = this._FB.group({
       data  : this._FB.array([
          this.initData()
-      ]),
-      payday: ['', Validators.required]
+      ])
    });
    this.populate();
   }
@@ -53,10 +51,10 @@ export class AddmembersPage {
       let resp=JSON.parse(JSON.stringify(data));
       
       if(!resp.user){
+        this.restProvider.showToast('Your session has expired');
         this.navCtrl.push(LoginPage);
       }
       else{
-        this.getPayDays();
       }
       
     });
@@ -91,9 +89,10 @@ export class AddmembersPage {
         this.phone.push(element.phone);
         
       });
-      this.restProvider.Regmembers(this.token,this.scheme,this.name,this.email,this.phone,this.amount,this.payday).then(data=>{
+      this.restProvider.Regmembers(this.token,this.scheme,this.name,this.email,this.phone,this.amount).then(data=>{
         let resp=JSON.parse(JSON.stringify(data));
         if(resp.message){
+          this.restProvider.showToast('Your successfully added members');
           this.navCtrl.push(HomePage);
         }
       });
@@ -105,21 +104,12 @@ export class AddmembersPage {
   }
 
 
-  getPayDays(){
-    this.restProvider.payDays(this.token,this.members,this.scheme).then(data=>{
-      let resp=JSON.parse(JSON.stringify(data)).paydays;
-      this.paydays=resp;
-      this.payday=this.paydays[0];
-      
-    });
-  }
-
   handlechange(){
     
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddmembersPage');
+  
   }
 
 }

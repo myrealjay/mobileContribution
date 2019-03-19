@@ -26,6 +26,7 @@ export class LoginPage {
 
   permissions:any;//cordova.plugins.permissions;
   messages:any;
+  
 
   constructor(public restProvider: RestProvider,public navCtrl: NavController, public navParams: NavParams,public menuCtrl: MenuController,
     public platform:Platform,public formBuilder: FormBuilder,private storage: Storage
@@ -52,6 +53,9 @@ export class LoginPage {
       
       if(resp.user){
         this.navCtrl.push(HomePage);
+      }
+      else{
+        this.restProvider.showToast('Your session has expired');
       }
       
     });
@@ -188,6 +192,7 @@ export class LoginPage {
             if(resp.user){
               this.storage.set("token",result.token);
               this.storage.set("user",resp.user);
+              this.restProvider.showToast('Login was successful');
               this.navCtrl.push(BvnPage);
             }
           });
@@ -205,7 +210,7 @@ export class LoginPage {
       });
     }
 
-
+   
 
 
 }

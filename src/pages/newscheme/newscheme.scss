@@ -12,11 +12,15 @@ page-newscheme {
         text-align: center !important;
     }
     .button-inner{
-        border-style: solid;
+        border-style: none;
         border-color:rgba(255, 255, 255,0.5);
         padding:10px;
         padding-left:15px;
         padding-right:15px;
         border-radius:10px;
     }
+
+   ion-label{
+       padding-left:12px !important;
+   }
 }

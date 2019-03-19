@@ -27,9 +27,11 @@ export class CreatedschemePage {
   schemeMember:any;
   email='';
   error='';
+  added_mem=0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider,private storage: Storage) {
     this.scheme=this.navParams.get('scheme');
+    this.added_mem=this.scheme.mem_added;
     this.name=this.scheme.Name;
     
     this.storage.get("token").then(data=>{
@@ -130,14 +132,14 @@ export class CreatedschemePage {
         my.restProvider.verifypayment(response.reference).then(res=>{
           var authcode=JSON.parse(JSON.stringify(res)).data.authorization.authorization_code;
           my.restProvider.addpayment(my.token,scheme_member_id,scheme,realAmount,authcode).then(data=>{
-            alert('You have successfully deposited');
+            my.restProvider.showToast('Your payment was successful');
           });
         });
          
           
       },
       onClose: function(){
-          alert('Payment canceled');
+          this.restProvider.showToast('Payment canceled');
       }
     })
     handler.openIframe();
@@ -179,7 +181,7 @@ export class CreatedschemePage {
 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CreatedschemePage');
+ 
   }
 
 }

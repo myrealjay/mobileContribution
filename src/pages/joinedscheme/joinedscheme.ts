@@ -79,6 +79,7 @@ export class JoinedschemePage {
       let resp=JSON.parse(JSON.stringify(data));
       
       if(!resp.user){
+        this.restProvider.showToast('Your session has expired');
         this.navCtrl.push(LoginPage);
       }
       else{
@@ -163,7 +164,7 @@ export class JoinedschemePage {
           
       },
       onClose: function(){
-          alert('Payment canceled');
+        this.restProvider.showToast('Your payment has called');
       }
     })
     handler.openIframe();
@@ -173,7 +174,11 @@ export class JoinedschemePage {
     this.restProvider.join(this.token,this.name,this.user.name,this.user.email,this.user.phone,this.amount,this.payday).then(data=>{
       let resp=JSON.parse(JSON.stringify(data));
       if(resp.message){
+        this.restProvider.showToast('You have joined '+this.name+'successfully');
         this.navCtrl.push(HomePage);
+      }
+      else{
+        this.error=resp.error;
       }
     });
   }
@@ -247,14 +252,14 @@ export class JoinedschemePage {
         my.restProvider.verifypayment(response.reference).then(res=>{
           var authcode=JSON.parse(JSON.stringify(res)).data.authorization.authorization_code;
           my.restProvider.addpayment(my.token,scheme_member_id,scheme,realAmount,authcode).then(data=>{
-            alert('You have successfully deposited');
+            my.restProvider.showToast('Your payment was successful');
           });
         });
          
           
       },
       onClose: function(){
-          alert('Payment canceled');
+        this.restProvider.showToast('Your payment was canceled');
       }
     })
     handler.openIframe();

@@ -46,7 +46,7 @@
       </table>
   </div>
 
-  <button *ngIf="memberLen==0" ion-button full color="light" class="mybutton" (click)="addmembers()">Add Members</button>
+  <button *ngIf="added_mem==0" ion-button full color="light" class="mybutton" (click)="addmembers()">Add Members</button>
   <button ion-button full color="light" class="mybutton" (click)="pay()">Make payment</button><br />
   <button ion-button full color="light" class="mybutton" (click)="paymentDetails()">Payment Details</button><br />
   <div style="font-weight: bold;color:yellow; text-align: center;">{{error}}</div>

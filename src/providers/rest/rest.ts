@@ -1,16 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {  LoadingController} from 'ionic-angular';
+import {  LoadingController,ToastController} from 'ionic-angular';
 
 
 
 @Injectable()
 export class RestProvider {
   private loading:any;
+  toast:any;
   apiUrl= 'http://localhost:8000/api';
 
-  constructor(public http: HttpClient,public loadingCtrl: LoadingController) {
+  constructor(public http: HttpClient,public loadingCtrl: LoadingController,public toastController: ToastController) {
   
+  }
+
+  showToast(message) {
+    this.toast = this.toastController.create({
+      message: message,
+      duration: 3000,
+      cssClass:"toastcss"
+    }).present();
   }
 
   //loading animation
@@ -23,7 +32,33 @@ export class RestProvider {
     this.loading.present();
   }
 
-  newScheme(token,fullname,amount,members){
+  checkAvailibity(token,scheme){
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl+'/checkAvailablity/'+scheme+'?token='+token, 
+      {
+        headers: { 'Content-Type': 'application/json' }
+      }
+      ).subscribe(data => {
+        
+        resolve(data);
+      }, err => {
+        let er=JSON.parse(JSON.stringify(err));
+        //let message=er.error.message.substring(0,15).trim();
+        if(er.error){
+          let errmsg='';
+          let ers=JSON.parse(er.error);
+          for(let key in ers){
+            errmsg+=ers[key][0];
+          
+          }
+          this.showToast(errmsg);
+        }
+        
+      });
+    });
+  }
+
+  newScheme(token,fullname,amount,members,startdate,enddate,paydays,selpayday){
     this.presentLoadingDefault();
     return new Promise(resolve => {
       this.http.post(this.apiUrl+'/new_scheme?token='+token,
@@ -31,6 +66,10 @@ export class RestProvider {
         Name : fullname,
         Amount: amount,
         Members:members,
+        startdate:startdate,
+        enddate:enddate,
+        paydays:paydays,
+        selpayday:selpayday,
       }, 
       {
         headers: { 'Content-Type': 'application/json' }
@@ -48,7 +87,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
            
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -74,7 +113,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
           
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -101,7 +140,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
           
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -128,7 +167,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
             
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -155,7 +194,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
             
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -182,7 +221,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
             
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -209,7 +248,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
            
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -244,7 +283,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
            
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -280,14 +319,14 @@ export class RestProvider {
             errmsg+=ers[key][0];
            
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
     });
   }
 
-  Regmembers(token,scheme,name,email,phone,amount,payday){
+  Regmembers(token,scheme,name,email,phone,amount){
     this.presentLoadingDefault();
     return new Promise(resolve => {
       this.http.post(this.apiUrl+'/RegMember?token='+token,
@@ -296,8 +335,7 @@ export class RestProvider {
         email : email,
         phone: phone,
         name:name,
-        amount:amount ,
-        payday:payday
+        amount:amount
       }, 
       {
         headers: { 'Content-Type': 'application/json' }
@@ -315,7 +353,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
            
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -347,7 +385,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
         
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -377,7 +415,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
             
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -404,7 +442,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
             
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -423,13 +461,13 @@ export class RestProvider {
       }, err => {
         let er=JSON.parse(JSON.stringify(err));
         if(er.status==500){
-          alert("Oops! something went wrong");
+          this.showToast("Oops! something went wrong");
         }
         if(er.status==401){
-          alert("Your session has expired, please login again");
+          this.showToast("Your session has expired, please login again");
         }
         if(er.status==0){
-          alert("Please check your connection");
+          this.showToast("Please check your connection");
         }
       });
     });
@@ -447,13 +485,13 @@ export class RestProvider {
       }, err => {
         let er=JSON.parse(JSON.stringify(err));
         if(er.status==500){
-          alert("Oops! something went wrong");
+          this.showToast("Oops! something went wrong");
         }
         if(er.status==401){
-          alert("Your session has expired, please login again");
+          this.showToast("Your session has expired, please login again");
         }
         if(er.status==0){
-          alert("Please check your connection");
+          this.showToast("Please check your connection");
         }
       });
     });
@@ -485,7 +523,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
             
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -504,13 +542,13 @@ export class RestProvider {
       }, err => {
         let er=JSON.parse(JSON.stringify(err));
         if(er.status==500){
-          alert("Oops! something went wrong");
+          this.showToast("Oops! something went wrong");
         }
         if(er.status==401){
-          alert("Your session has expired, please login again");
+          this.showToast("Your session has expired, please login again");
         }
         if(er.status==0){
-          alert("Please check your connection");
+          this.showToast("Please check your connection");
         }
       });
     });
@@ -542,7 +580,7 @@ export class RestProvider {
             errmsg+=ers[key][0];
            
           }
-          alert(errmsg);
+          this.showToast(errmsg);
         }
         
       });
@@ -562,13 +600,13 @@ export class RestProvider {
       }, err => {
         let er=JSON.parse(JSON.stringify(err));
         if(er.status==500){
-          alert("Oops! something went wrong");
+          this.showToast("Oops! something went wrong");
         }
         if(er.status==401){
-          alert("Your session has expired, please login again");
+          this.showToast("Your session has expired, please login again");
         }
         if(er.status==0){
-          alert("Please check your connection");
+          this.showToast("Please check your connection");
         }
       });
     });
@@ -587,13 +625,13 @@ export class RestProvider {
       }, err => {
         let er=JSON.parse(JSON.stringify(err));
         if(er.status==500){
-          alert("Oops! something went wrong");
+          this.showToast("Oops! something went wrong");
         }
         if(er.status==401){
-          alert("Your session has expired, please login again");
+          this.showToast("Your session has expired, please login again");
         }
         if(er.status==0){
-          alert("Please check your connection");
+          this.showToast("Please check your connection");
         }
       });
     });
@@ -618,13 +656,13 @@ export class RestProvider {
         }, err => {
           let er=JSON.parse(JSON.stringify(err));
           if(er.status==500){
-            alert("Oops! something went wrong");
+            this.showToast("Oops! something went wrong");
           }
           if(er.status==401){
-            alert("Your session has expired, please login again");
+            this.showToast("Your session has expired, please login again");
           }
           if(er.status==0){
-            alert("Please check your connection");
+            this.showToast("Please check your connection");
           }
         });
       });
@@ -647,13 +685,13 @@ export class RestProvider {
         }, err => {
           let er=JSON.parse(JSON.stringify(err));
           if(er.status==500){
-            alert("Oops! something went wrong");
+            this.showToast("Oops! something went wrong");
           }
           if(er.status==401){
-            alert("Your session has expired, please login again");
+            this.showToast("Your session has expired, please login again");
           }
           if(er.status==0){
-            alert("Please check your connection");
+            this.showToast("Please check your connection");
           }
         });
       });

@@ -38,6 +38,7 @@ export class RegisterPage {
       if(result.token){
         this.storage.set('token',result.token);
         this.storage.set('user',result.user);
+        this.restProvider.showToast('Your registration was successful');
         this.navCtrl.push(VerifyPage);
       }
       else{

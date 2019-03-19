@@ -57,6 +57,7 @@ export class BvnPage {
     .then(data => {
       var result=JSON.parse(JSON.stringify(data));
       if(result.success){
+        this.restProvider.showToast('Your bvn was successfully verified');
         this.navCtrl.push(HomePage);
       }
       else{

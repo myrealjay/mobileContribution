@@ -35,6 +35,7 @@ export class VerifyPage {
       var result=JSON.parse(JSON.stringify(data));
       if(result.message){
         if(result.message=="successful"){
+          this.restProvider.showToast('Your email was successfully verified');
           this.navCtrl.push(BvnPage);
         }
       }
