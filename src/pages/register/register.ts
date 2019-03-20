@@ -19,6 +19,16 @@ export class RegisterPage {
   phone='';
   email='';
   public error='';
+  banknames=[
+    "ACCESS BANK","CITIBANK","DIAMOND BANK","ECOBANK NIGERIA","ENTERPRISE BANK LIMITED","FIDELITY BANK NIGERIA",
+    "FIRST BANK OF NIGERIA","FIRST CITY MONUMENT BANK","FSDH MERCHANT BANK","GUARANTY TRUST BANK (GTB)",
+    "HERITAGE BANK PLC","KEYSTONE BANK LIMITED","RAND MERCHANT BANK","SKYE BANK","STANBIC IBTC BANK NIGERIA LIMITED",
+    "STANDARD CHARTERED BANK","STERLING BANK","UNION BANK OF NIGERIA","UNITED BANK FOR AFRICA","UNITY BANK PLC",
+    "WEMA BANK","ZENITH BANK","SUNTRUST BANK NIGERIA LIMITED","PROVIDUSBANK PLC","JAIZ BANK LIMITED","FCMB GROUP PLC",
+    "FBN HOLDINGS PLC","STANBIC IBTC HOLDINGS PLC","CORONATION MERCHANT BANK","FBN MERCHANT BANK"
+  ];
+  bankname=this.banknames[0];
+  accountno='';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private storage: Storage,
     public platform:Platform,public formBuilder: FormBuilder,public restProvider: RestProvider) {
@@ -26,13 +36,15 @@ export class RegisterPage {
         name: ['', Validators.compose([Validators.required])],
         password: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
         phone: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]+')])],
-        email: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9\.]+@[a-zA-Z0-9\.]+[\.][a-zA-Z0-9\.]+'), Validators.minLength(5), Validators.maxLength(100)])]
+        email: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9\.]+@[a-zA-Z0-9\.]+[\.][a-zA-Z0-9\.]+'), Validators.minLength(5), Validators.maxLength(100)])],
+        bank: ['', Validators.compose([Validators.required])],
+        accountno: ['', Validators.compose([Validators.required])]
       });
   }
 
 
   onSubmit(){ 
-    this.restProvider.register(this.name,this.email,this.phone,this.password)
+    this.restProvider.register(this.name,this.email,this.phone,this.password,this.bankname,this.accountno)
     .then(data => {
       var result=JSON.parse(JSON.stringify(data));
       if(result.token){

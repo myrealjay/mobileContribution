@@ -255,7 +255,7 @@ export class RestProvider {
     });
   }
 
-  register(name,email,phone,password){
+  register(name,email,phone,password,bank,accountno){
     this.presentLoadingDefault();
     return new Promise(resolve => {
       this.http.post(this.apiUrl+'/register',
@@ -265,6 +265,8 @@ export class RestProvider {
         name:name,
         phone:phone,
         platform:2,
+        bank:bank,
+        accountno:accountno
         
       }, 
       {

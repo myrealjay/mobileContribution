@@ -55,7 +55,7 @@ export class LoginPage {
         this.navCtrl.push(HomePage);
       }
       else{
-        this.restProvider.showToast('Your session has expired');
+        
       }
       
     });
