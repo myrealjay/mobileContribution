@@ -10,6 +10,9 @@
             <tr>
               <td class="title">Amount</td><td>{{ amount }}</td>
             </tr>
+            <tr>
+              <td class="title">Starting</td><td>{{ scheme.startdate|date:'longDate' }}</td>
+            </tr>
           </table>
       </div>
       <div class="members" *ngIf="memberLen >0">

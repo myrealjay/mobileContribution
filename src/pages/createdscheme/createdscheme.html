@@ -13,6 +13,9 @@
         <tr>
           <td class="title">Number of members</td><td>{{ scheme.Members }}</td>
         </tr>
+        <tr>
+          <td class="title">Starting</td><td>{{ scheme.startdate|date:'longDate' }}</td>
+        </tr>
       </table>
   </div>
   <div class="members" *ngIf="memberLen > 0">

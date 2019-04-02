@@ -164,7 +164,7 @@ export class JoinedschemePage {
           
       },
       onClose: function(){
-        this.restProvider.showToast('Your payment has called');
+        my.restProvider.showToast('Your payment has called');
       }
     })
     handler.openIframe();
@@ -259,7 +259,7 @@ export class JoinedschemePage {
           
       },
       onClose: function(){
-        this.restProvider.showToast('Your payment was canceled');
+        my.restProvider.showToast('Your payment was canceled');
       }
     })
     handler.openIframe();

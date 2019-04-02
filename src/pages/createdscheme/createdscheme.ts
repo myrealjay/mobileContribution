@@ -139,7 +139,7 @@ export class CreatedschemePage {
           
       },
       onClose: function(){
-          this.restProvider.showToast('Payment canceled');
+          my.restProvider.showToast('Payment canceled');
       }
     })
     handler.openIframe();
